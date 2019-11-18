@@ -6,26 +6,40 @@
 </head>
 <style type="text/css">
 .floating-div {
-  position: absolute;
-  right: 40px;
-  top: 40px;
-  z-index: 100000;
+	position: fixed;
+	top: 40px;
+	right: 40px;
+	z-index: -1;
 }
 </style>
 <script type="text/javascript">
 
 	var data = [
+		["Den 9, Den 41", "蟾蜍王", "沙尘洼地"],
+		["17", "超音波幼虫", "沙尘洼地"],
+		["36, Den 63*, Den 88*", "长毛巨魔, 流氓熊猫", "沙尘洼地"],
+		["Den 21, Den 17, Den 22", "长毛猪", "沙尘洼地"],
+		["11", "齿轮组", "沙尘洼地"],
+		["Den 6, Den 28", "南瓜怪人", "沙尘洼地"],
+		["Den 7, Den 76", "章鱼桶", "美纳斯湖南岸"],
 		["Den 26, Den 58, Den 59, Den 79", "乐天河童", "沐光森林"],
 		["Den 4, Den 5, Den 61, Den 89, Den 90", "巴大蝶", "牙牙湖西岸?"],
 		["Den 41, Den 9, Den 21", "刺甲贝", "牙牙湖西岸"],
 		["Den 9, Den 41, Den 52, Den 93", "蓝蟾蜍", "牙牙湖西岸?"],
+		["Den 31, Den 50, Den 68", "心蝙蝠", "牙牙湖东岸"],
+		["29", "毒蔷薇, 超坏星", "美纳斯湖北岸"],
+		["Den 4, Den 5, Den 24, Den 56", "电蜘蛛", "机擎河岸"],
+		["40", "掘地兔, 毛毛角羊", "机擎河岸"],
 		["39", "童偶熊, 掘地兔", "牙牙湖东岸"],
 		["Den 3, Den 15", "庞岩怪", "巨石原野"],
 		["Den 8, Den 41", "戽斗尖梭", "桥间空地"],
+		["Den 89, Den 4, Den 5, Den 61, Den 90", "巴大蝶", "巨人镜池"],
 		["Den 11, Den 12, Den 35, Den 45, Den 49, Den 69, Den 84, Den 85", "劈斩司令", "巨人镜池"],
-		["Den 14, Den 23, Den 50, Den 55, Den 68, Den 73, Den 83", "踏冰人偶", "拳关丘陵"],
+		["Den 13, Den 40, Den 65", "踏冰人偶, 爱管侍", "拳关丘陵"],
 		["Den 18, Den 19, Den 20, Den 53, Den 54, Den 77", "焰后蜥, 风速狗", "逆鳞湖"],
+		["14", "果然翁", "巨石原野"],
 		["Den 20, Den 18, Den 19, Den 53, Den 54, Den 71, Den 77, Den 80", "煤炭龟", "巨石原野"],
+		["40, 66*", "藏饱栗鼠", "巨石原野"],
 		["22", "冻原熊", "巨石原野"],
 		["Den 25, Den 72", "光电伞蜥", "煦丽草原"],
 		["Den 27, Den 59, Den 70", "樱花儿", "桥间空地"],
@@ -34,8 +48,10 @@
 	]
 
 	function sorter(a, b) {
-		let left = parseInt(a[0].split(",")[0].replace(/\D/g,''))
-		let right = parseInt(b[0].split(",")[0].replace(/\D/g,''))
+		//let left = parseInt(a[0].split(",")[0].replace(/\D/g,''))
+		//let right = parseInt(b[0].split(",")[0].replace(/\D/g,''))
+		let left = a[0]
+		let right = b[0]
 	    if (left === right) {
 	        return 0;
 	    }
@@ -51,21 +67,27 @@
 
 		let firstPossible = den.split(',')[0].replace(/\s/g, '').toLowerCase()
 
-		//document.getElementById("floater").src = "res/den2x.jfif"
-		document.getElementById("floater").src = "res/" + firstPossible + ".jfif"
+		//document.getElementById("floater").src = "res/" + firstPossible + ".jfif"
+
+		let name = element.innerHTML.split(',')[0].replace(/\s/g, '').toLowerCase()
+		//document.getElementById("floater").src = "res/" + name + ".jfif"
+		document.getElementById("floater").src = "res/" + name + firstPossible + ".jfif"
 	}
-	function getData(){
+	function createTable(){
 
 		data.sort(sorter);
+	    let length = data.length
+	    console.log(length)
 
-	    var table  = document.getElementById('tableBody')
+	    let table  = document.getElementById('tableBody')
 	    var a, tr, td
 	    var dot
-	    for(var i = 0; i < data.length; i++){
+
+	    for(var i = 0; i < length; i++){
 	        tr = table.insertRow()
 
             td = tr.insertCell()
-            td.appendChild(document.createTextNode(data[i][0]))
+			td.appendChild(document.createTextNode(data[i][0]))
 
             td = tr.insertCell()
             subStrings = data[i][1].split(",")
@@ -90,7 +112,7 @@
 	}
 </script>
 
-<body onload="getData()">
+<body onload="createTable()">
 
 <div class="pure-g">
 <div class="pure-u-1-8">
@@ -119,7 +141,7 @@
 </div></div>
 
 <div class="floating-div">
-	<img id="floater" src="res/22.jfif" height="550">
+	<img id="floater" src="#" height="520">
 </div>
 
 </body>
