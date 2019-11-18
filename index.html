@@ -5,6 +5,9 @@
 <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
 </head>
 <style type="text/css">
+a {
+	text-decoration: none;
+}
 .floating-div {
 	position: fixed;
 	top: 40px;
@@ -15,9 +18,10 @@
 <script type="text/javascript">
 
 	var data = [
+		["1", "飞腿郎", "美纳斯湖南岸"],
 		["Den 9, Den 41", "蟾蜍王", "沙尘洼地"],
 		["17", "超音波幼虫", "沙尘洼地"],
-		["36, Den 63*, Den 88*", "长毛巨魔, 流氓熊猫", "沙尘洼地"],
+		["36, (Den 63, Den 88)", "长毛巨魔, 流氓熊猫", "沙尘洼地"],
 		["Den 21, Den 17, Den 22", "长毛猪", "沙尘洼地"],
 		["11", "齿轮组", "沙尘洼地"],
 		["Den 6, Den 28", "南瓜怪人", "沙尘洼地"],
@@ -26,7 +30,8 @@
 		["Den 4, Den 5, Den 61, Den 89, Den 90", "巴大蝶", "牙牙湖西岸?"],
 		["Den 41, Den 9, Den 21", "刺甲贝", "牙牙湖西岸"],
 		["Den 9, Den 41, Den 52, Den 93", "蓝蟾蜍", "牙牙湖西岸?"],
-		["Den 31, Den 50, Den 68", "心蝙蝠", "牙牙湖东岸"],
+		["31", "心蝙蝠", "牙牙湖东岸"],
+		["Den 8, Den 41, (Den 75, Den 76, Den 78)", "弱丁鱼, 巨钳蟹", "美纳斯湖北岸"],
 		["29", "毒蔷薇, 超坏星", "美纳斯湖北岸"],
 		["Den 4, Den 5, Den 24, Den 56", "电蜘蛛", "机擎河岸"],
 		["40", "掘地兔, 毛毛角羊", "机擎河岸"],
@@ -39,7 +44,7 @@
 		["Den 18, Den 19, Den 20, Den 53, Den 54, Den 77", "焰后蜥, 风速狗", "逆鳞湖"],
 		["14", "果然翁", "巨石原野"],
 		["Den 20, Den 18, Den 19, Den 53, Den 54, Den 71, Den 77, Den 80", "煤炭龟", "巨石原野"],
-		["40, 66*", "藏饱栗鼠", "巨石原野"],
+		["40, (66)", "藏饱栗鼠", "巨石原野"],
 		["22", "冻原熊", "巨石原野"],
 		["Den 25, Den 72", "光电伞蜥", "煦丽草原"],
 		["Den 27, Den 59, Den 70", "樱花儿", "桥间空地"],
@@ -58,6 +63,9 @@
 	    else {
 	        return (left < right) ? -1 : 1;
 	    }
+	}
+	function gotoCerebii(element) {
+		window.open("https://www.serebii.net/swordshield/maxraidbattles/den" + element.innerHTML.replace(/\D/g,'') + ".shtml")
 	}
 	function gotoWiki(element) {
 		window.open("https://wiki.52poke.com/wiki/" + element.innerHTML)
@@ -81,13 +89,25 @@
 
 	    let table  = document.getElementById('tableBody')
 	    var a, tr, td
-	    var dot
+	    var dot, subStrings
 
 	    for(var i = 0; i < length; i++){
 	        tr = table.insertRow()
 
             td = tr.insertCell()
-			td.appendChild(document.createTextNode(data[i][0]))
+            subStrings = data[i][0].split(",")
+            for (var j = 0; j < subStrings.length; j++) {
+            	if (j != 0) {
+            		dot = document.createTextNode(", ")
+            		td.appendChild(dot)
+            	}
+
+				a = document.createElement('a')
+				a.innerText = subStrings[j].replace(/\s/g, '')
+				a.setAttribute('href',"#")
+				a.setAttribute("onclick", "gotoCerebii(this)")
+				td.appendChild(a)
+            }
 
             td = tr.insertCell()
             subStrings = data[i][1].split(",")
@@ -129,7 +149,7 @@
 <div class="pure-u-11-24">
 <table class="pure-table pure-table-bordered">
 <thead><tr>
-<td>No.</td>
+<td>红光（紫光）</td>
 <td>宝可梦</td>
 <td>位置</td>
 </tr></thead>
