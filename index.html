@@ -18,6 +18,7 @@ a {
 <script type="text/javascript">
 
 	var data = [
+		["4", "铁甲蛹", "煦丽草原"],
 		["1", "飞腿郎", "美纳斯湖南岸"],
 		["Den 9, Den 41", "蟾蜍王", "沙尘洼地"],
 		["17", "超音波幼虫", "沙尘洼地"],
@@ -53,10 +54,19 @@ a {
 	]
 
 	function sorter(a, b) {
-		//let left = parseInt(a[0].split(",")[0].replace(/\D/g,''))
-		//let right = parseInt(b[0].split(",")[0].replace(/\D/g,''))
-		let left = a[0]
-		let right = b[0]
+		var left = parseInt(a[0].split(",")[0].replace(/\D/g,''))
+		var right = parseInt(b[0].split(",")[0].replace(/\D/g,''))
+
+
+		if (a[0].split(",")[0].includes("Den")) {
+			left += 100
+		}
+		if (b[0].split(",")[0].includes("Den")) {
+			right += 100
+		}
+
+		//let left = a[0]
+		//let right = b[0]
 	    if (left === right) {
 	        return 0;
 	    }
@@ -71,7 +81,7 @@ a {
 		window.open("https://wiki.52poke.com/wiki/" + element.innerHTML)
 	}
 	function showImage(element) {
-		let den = element.parentNode.parentNode.cells[0].innerHTML
+		let den = element.parentNode.parentNode.cells[0].firstChild.innerHTML
 
 		let firstPossible = den.split(',')[0].replace(/\s/g, '').toLowerCase()
 
